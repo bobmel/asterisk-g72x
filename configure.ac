@@ -126,6 +126,9 @@ else
     AX_CHECK_COMPILER_FLAGS(-flto, [flto="-flto"; fwholeprg="-fwhole-program"])
 fi
 
+AC_ARG_ENABLE([wandboard],
+    AS_HELP_STRING([--enable-wandboard], [Optimize for Wandboard Quad]),
+    [march=armv7-a; cflags="-marm -mthumb-interwork -mfloat-abi=hard -mfpu=neon -mtune=cortex-a9"])
 AC_ARG_ENABLE([raspberrypi],
     AS_HELP_STRING([--enable-raspberrypi], [Build for Raspberry Pi]),
     [march="armv6zk"; cflags="-mcpu=arm1176jzf-s -mfloat-abi=hard -mfpu=vfp -O3 -Wall"])
