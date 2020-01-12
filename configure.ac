@@ -25,14 +25,6 @@ case "${host_os}" in
         ;;
 esac
 
-# tested on raspberry Pi, may be not valid for other ARM devices
-case "${host}" in
-  armv6l-*-linux-gnueabihf*)
-    cflags="-mcpu=arm1176jzf-s -mfloat-abi=hard -mfpu=vfp -O3 -Wall"
-    march="armv6zk"
-    ;;
-esac
-
 if test "${prefix}" = "NONE"; then
     prefix="${ac_default_prefix}"
 fi
@@ -134,6 +126,9 @@ else
     AX_CHECK_COMPILER_FLAGS(-flto, [flto="-flto"; fwholeprg="-fwhole-program"])
 fi
 
+AC_ARG_ENABLE([raspberrypi],
+    AS_HELP_STRING([--enable-raspberrypi], [Build for Raspberry Pi]),
+    [march="armv6zk"; cflags="-mcpu=arm1176jzf-s -mfloat-abi=hard -mfpu=vfp -O3 -Wall"])
 AC_ARG_ENABLE([barcelona],
     AS_HELP_STRING([--enable-barcelona],
     [Optimize for AMD K10/Opteron/Phenom (enables SSE3)]),
